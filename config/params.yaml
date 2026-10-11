@@ -1,0 +1,30 @@
+# Пороги подобраны по трём логам, обоснование в README.
+mower_status_node:
+  ros__parameters:
+    imu_topic: "/imu"
+    gps_topic: "/RoboMowerRealistic/gps"
+    speed_topic: "/RoboMowerRealistic/gps/speed"
+
+    status_topic: "/robot/status"
+    gps_out_topic: "/robot/gps"
+    gps_filtered_topic: "/robot/gps_filtered"
+
+    # Шум GPS, измеренный на неподвижном роботе: sigma ~ 0.30 м по каждой оси.
+    gps_sigma: 0.30
+    kf_process_density: 0.10
+
+    # Максимальный наклон в штатной езде — 72 град, при перевороте — 157 град.
+    # Порог 80 град лежит в этом зазоре с запасом.
+    tilt_on_deg: 80.0
+    tilt_off_deg: 70.0
+    tilt_hold_s: 0.3
+
+    # Средняя скорость: в штатной езде минимум 0.29 м/с, при буксовании
+    # максимум 0.10 м/с. Порог 0.15 м/с — посередине зазора.
+    speed_window_s: 0.5
+    speed_on: 0.15
+    speed_off: 0.25
+    stuck_hold_s: 1.0
+
+    publish_rate_hz: 10.0
+    log_csv: ""
